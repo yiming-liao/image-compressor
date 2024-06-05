@@ -82,7 +82,7 @@ const Dropdown: React.FC<{
                     {React.Children.map(children, (child, i) => (
                         <div
                             key={i}
-                            ref={el => optionRef.current[i] = el}
+                            ref={el => { optionRef.current[i] = el }}
                             onClick={closeDropdown} // 當選擇選項時也關閉菜單
                         >
                             {child}
