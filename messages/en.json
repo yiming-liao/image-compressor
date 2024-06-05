@@ -1,0 +1,22 @@
+{
+    "Home": {
+        "title": "Image Compressor"
+    },
+    "Navbar": {
+        "About": "About"
+    },
+    "Compressor": {
+        "btn1": "Choose file",
+        "p1": "Compressed Size",
+        "btn2": "Compress",
+        "p2": "Download File Name",
+        "btn3": "Download Image"
+    },
+    "About": {
+        "title": "About",
+        "p1": "Hello! I'm Yiming👋🏻",
+        "p2": "Due to my frequent need to compress photos, I created this small site. 🔧",
+        "p3": "In this website, I used Next.js to build it and practiced using next-intl for i18n language switching.",
+        "p4": "Main tech: compressor.js"
+    }
+}

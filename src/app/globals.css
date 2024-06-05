@@ -1,0 +1,34 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* Scroll bar */
+/* width */
+::-webkit-scrollbar {
+    height: 6px;
+    width: 0;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #dfdfdf;
+    border-radius: 50px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #999;
+  }
+
+
+
+  .forNavbar {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* 添加WebKit前綴 */
+  }
