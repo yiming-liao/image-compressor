@@ -19,7 +19,7 @@ const About: NextPage = () => {
 
     return (
         <main className="w-full min-h-[100vh] flex flex-col items-center bg-neutral-100">
-            <div className="mt-28 mb-12">
+            <div className="max-sm:mt-28 mt-36 mb-12">
                 <h1 className={`${fontClassName} font-semibold text-3xl tracking-wider text-slate-700`}>📃 {t('title')}</h1>
             </div>
 
