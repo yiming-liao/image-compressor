@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: { params: { locale: string } 
                 rel: 'apple-touch-icon',
                 type: 'image/png',
                 sizes: '180x180',
-                url: '/apple-icon.png',
+                url: 'http:192.168.1.211:3000/en/apple-icon.png',
             },
         ],
     };
