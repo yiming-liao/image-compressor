@@ -4,6 +4,8 @@ import { createContext, useContext, ReactNode } from 'react';
 import { Gloock } from 'next/font/google';
 import localFont from 'next/font/local';
 
+import { ThemeProvider } from "@/context/ThemeContext";
+
 const gloock = Gloock({ subsets: ['latin'], weight: '400' });
 const zhFont = localFont({ src: '../../public/fonts/NotoSerifJP-VariableFont_wght.ttf', });
 
@@ -15,7 +17,9 @@ const FontContext = createContext({
 export const FontProvider = ({ children }: { children: ReactNode }) => {
     return (
         <FontContext.Provider value={{ gloock, zhFont }}>
-            {children}
+            <ThemeProvider>
+                {children}
+            </ThemeProvider>
         </FontContext.Provider>
     );
 };

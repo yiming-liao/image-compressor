@@ -13,15 +13,22 @@ import { useTranslations } from 'next-intl';
 const ImageCompressor: NextPage = () => {
     const [downloadUrl, setDownloadUrl] = useState<string>("");
     const [fileName, setFileName] = useState<string | null>(null);
-    const [customFileName, setCustomFileName] = useState<string>('compressed.jpg');
+    const [customFileName, setCustomFileName] = useState<string>('');
     const inputRef = useRef<HTMLInputElement>(null);
     const [file, setFile] = useState<File | null>(null); // 添加一個狀態來保存文件
     const [quality, setQuality] = useState<number>(8); // 控制壓縮品質的狀態
     const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [mimeType, setMimeType] = useState<"png" | "webp" | "jpeg">("jpeg");
 
     const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files?.[0];
         if (!file) return;
+
+        const fileName = file.name;
+        const extension = fileName.split('.').pop() || '';  // 使用正則表達式提取副檔名
+        if (extension === "png") setMimeType("png");
+        if (extension === "webp") setMimeType("webp");
+        if (extension === "jpeg" || extension === "jpg") setMimeType("jpeg");
         setDownloadUrl("")
         setFileName(file.name);
         setFile(file); // 保存文件到狀態中
@@ -32,6 +39,8 @@ const ImageCompressor: NextPage = () => {
         setIsLoading(true);
         new Compressor(file, {
             quality: quality / 10, // 使用狀態中的壓縮品質
+            mimeType: `image/${mimeType}`,
+            convertSize: 20000000, // 最大20MB
             success(result) {
                 const url = URL.createObjectURL(result);
                 setDownloadUrl(url);
@@ -41,11 +50,12 @@ const ImageCompressor: NextPage = () => {
                 console.error('Compress Error:', err.message);
             },
         });
+
+        const timeStamp = getCurrentFormattedTime();
+        setCustomFileName(`${timeStamp}`)
     }
 
-    const handleButtonClick = () => {
-        inputRef.current?.click();
-    };
+    const handleButtonClick = () => inputRef.current?.click();
 
     // 出現動畫
     const ref = useRef<HTMLDivElement | null>(null);
@@ -63,7 +73,7 @@ const ImageCompressor: NextPage = () => {
     const t = useTranslations("Compressor");
 
     return (
-        <div className="w-full flex flex-col items-center justify-center p-8" ref={ref}>
+        <div className="w-full flex flex-col items-center justify-center px-8 py-8" ref={ref}>
             <input
                 type="file"
                 accept="image/*"
@@ -71,52 +81,81 @@ const ImageCompressor: NextPage = () => {
                 ref={inputRef}
                 className="hidden"
             />
+
+            {/* 選擇檔案 */}
             <button
                 onClick={handleButtonClick}
-                className="w-32 h-10 pr-2 text-slate-600 font-semibold shadow bg-gray-100 border-2 border-gray-300 rounded-md active:scale-95 flex justify-center items-center
-                hover:bg-slate-600 hover:text-slate-100 duration-150
+                className="w-auto h-10 pr-2 text-slate-600 font-semibold shadow bg-slate-100 border-2 border-slate-300 rounded-md active:scale-95 flex justify-center items-center
+                sm:hover:bg-slate-600 sm:hover:text-slate-100 duration-150 max-sm:active:bg-slate-600 max-sm:active:text-slate-100
                 "
             >
-                <Paperclip className='scale-[65%]' />
+                <div className='w-6 ml-1 scale-[65%]'>
+                    <Paperclip className='duration-0' />
+                </div>
                 {t("btn1")}
             </button>
 
-
+            {/* 已上傳檔案 */}
             <div className='flex flex-col justify-center items-center mt-3'>
                 <div className='relative flex justify-center items-center mt-1'>
-                    <CornerDownRight className='text-slate-400 scale-75 absolute left-0 -translate-x-[100%]' />
-                    <div className=' bg-slate-200 w-52 h-12 rounded-md flex justify-start items-center overflow-auto shadow-inner cursor-grab active:cursor-grabbing'>
+                    <CornerDownRight className='text-slate-400 absolute left-0 -translate-x-[100%]' />
+                    <div className=' bg-slate-100 w-52 h-12 rounded-md flex justify-start items-center overflow-auto shadow-inner cursor-grab active:cursor-grabbing'>
                         <RippleEffect buttonStyles={'w-full h-12 rounded-md'} rippleStyles={'bg-slate-400/50'} rippleScale={3} rippleDuration={1.85}>
-                            <p className={`${fileName ? "text-slate-600" : "text-slate-500/50"} w-full font-semibold text-nowrap text-center`}>{fileName || "無"}</p>
+                            <p className={`${fileName ? "text-slate-600" : "text-slate-500/50"} w-full font-semibold text-nowrap text-center`}>{fileName || `${t("none")}`}</p>
                         </RippleEffect>
                     </div>
                 </div>
             </div>
 
             <div className='flex flex-col justify-center items-center mt-6'>
+                {/* 輸出格式 */}
+                <p className={` text-slate-400 w-full font-semibold text-nowrap text-start text-sm my-1 ml-1`}>
+                    {t("p3")}：
+                </p>
+                <div className='flex justify-between w-52 items-center mb-3'>
+                    {["jpeg", "png", "webp"]
+                        .map((option, idx) => (
+                            <HoverButton
+                                key={idx}
+                                pClassName={`${mimeType === option ? "text-white" : "text-slate-600"} group-hover:text-white duration-75 font-semibold`}
+                                buttonClassName={`w-14 h-10 rounded-md ${mimeType === option ? "bg-slate-500" : "bg-white"} active:shadow-inner flex-center border-2 border-gray-100/30`}
+                                spanClassName={"bg-slate-700/80 rounded-full"}
+                                scale={1.6}
+                                onClick={() => setMimeType(option as "jpeg" | "png" | "webp")}
+                            >
+                                <RippleEffect buttonStyles={'w-14 h-10 rounded-md'} rippleStyles={'bg-slate-200/50'} rippleScale={4} rippleDuration={.85}>
+                                    {option}
+                                </RippleEffect>
+                            </HoverButton>
+                        ))}
+                </div>
+
+                {/* 壓縮後容量 */}
                 <p className={` text-slate-400 w-full font-semibold text-nowrap text-start text-sm my-1 ml-1`}>
                     {t("p1")}：
                 </p>
-                <div className='flex justify-center items-center gap-2'>
+                <div className='flex justify-between w-52 items-center gap-2'>
                     {[{ text: "10%", quality: 1 }, { text: "30%", quality: 5 }, { text: "60%", quality: 8 }, { text: "90%", quality: 9 }]
                         .map((option, idx) => (
                             <HoverButton
                                 key={idx}
                                 pClassName={`${quality === option.quality ? "text-white" : "text-slate-600"} group-hover:text-white duration-75 font-semibold`}
-                                buttonClassName={`w-12 h-8 rounded-md ${quality === option.quality ? "bg-slate-500" : "bg-white"} active:shadow-inner`}
+                                buttonClassName={`w-12 h-8 rounded-md ${quality === option.quality ? "bg-slate-500" : "bg-white"} active:shadow-inner flex-center border-2 border-gray-100/30`}
                                 spanClassName={"bg-slate-700/80 rounded-full"}
                                 scale={1.6}
                                 onClick={() => setQuality(option.quality)}
                             >
-                                <RippleEffect buttonStyles={'w-full h-8 rounded-md'} rippleStyles={'bg-slate-200/50'} rippleScale={4} rippleDuration={.85}>
+                                <RippleEffect buttonStyles={'w-12 h-8 rounded-md'} rippleStyles={'bg-slate-200/50'} rippleScale={4} rippleDuration={.85}>
                                     {option.text}
                                 </RippleEffect>
                             </HoverButton>
                         ))}
                 </div>
 
+                {/* 壓縮 */}
                 <button
-                    className={`w-28 h-12 rounded-full mt-6 font-semibold active:scale-95 ${fileName ? "bg-white text-slate-600 shadow-md hover:bg-slate-600/75 hover:text-slate-100 duration-150" : "bg-none border-2 border-slate-300/75 text-slate-300/75"}`}
+                    className={`w-28 h-12 rounded-full mt-6 font-semibold active:scale-95  duration-150  border-2 border-slate-300/75
+                        ${fileName ? "bg-white text-slate-600 shadow-md sm:hover:bg-slate-500/75 sm:hover:text-slate-100 max-sm:active:bg-slate-600/75 max-sm:active:text-slate-100" : "bg-none text-slate-300/75"}`}
                     onClick={handleCompress}
                     disabled={!fileName}
                 >
@@ -146,20 +185,43 @@ const ImageCompressor: NextPage = () => {
                 <a
                     href={downloadUrl}
                     download={customFileName}
-                    className="w-52 h-10 rounded-md flex items-center justify-center font-semibold text-slate-100 bg-gradient-to-r from-slate-700/50 to-slate-500  mt-2 shadow-md
-                        hover:from-slate-300/70 hover:to-slate-400 hover:text-slate-600 hover:duration-500 active:duration-75 active:scale-95"
+                    className="w-52 h-10 rounded-md flex items-center justify-center font-semibold text-slate-100 mt-2 shadow-md
+                            bg-gradient-to-r from-gray-400 to-slate-500 
+                            "
                 >
                     <RippleEffect
                         buttonStyles={'w-full h-10 rounded-md flex items-center justify-center pr-2'}
-                        rippleStyles={'w-full h-full bg-white/50'}
+                        rippleStyles={'w-full h-full bg-white/50 max-sm:hidden'}
                         rippleScale={3} rippleDuration={1}>
                         <Download className='scale-[65%]' />
                         {t("btn3")}
                     </RippleEffect>
                 </a>
             </div>
-        </div>
+        </div >
     );
 };
 
 export default ImageCompressor;
+
+
+
+
+function getCurrentFormattedTime() {
+    const now = new Date();
+
+    const year = now.getFullYear();
+    const month = now.getMonth() + 1; // 月份是從 0 開始的
+    const day = now.getDate();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const seconds = now.getSeconds();
+
+    // 使用模板字串並將單個數字轉換為兩位數
+    return `${year}${padToTwoDigits(month)}${padToTwoDigits(day)}_${padToTwoDigits(hours)}${padToTwoDigits(minutes)}${padToTwoDigits(seconds)}`;
+}
+
+// 補零函數，確保每部分至少有兩位數
+function padToTwoDigits(num: number) {
+    return num.toString().padStart(2, '0');
+}

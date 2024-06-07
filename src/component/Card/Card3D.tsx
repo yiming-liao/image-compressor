@@ -46,9 +46,7 @@ export const Card3D: React.FC = () => {
         handleEnd();
     };
 
-    const { localeCode } = useLocaleCode();
-    const { gloock, zhFont } = useFont();
-    const fontClassName = localeCode === "en" ? gloock.className : zhFont.className;
+    const { zhFont } = useFont();
     const t = useTranslations("About");
 
     return (
@@ -64,10 +62,13 @@ export const Card3D: React.FC = () => {
                 transition: 'transform 0.1s ease-out',
                 perspective: "1000px",
             }}
-            className='w-96 max-w-[90%] h-fit bg-gray-200 flex flex-col justify-center items-center gap-2 rounded-xl shadow-lg p-5'
+            className='w-96 max-w-[90%] h-fit flex flex-col justify-center items-center gap-2 rounded-xl p-5
+                      bg-gray-50 text-gray-600
+                       dark:bg-slate-600 dark:text-gray-100
+                        shadow-[0px_0px_10px_1px_rgba(160,160,160)]'
         >
             <p
-                className={`${zhFont.className} font-medium text-slate-600 my-3`}
+                className={`${zhFont.className} font-medium my-3`}
                 style={{
                     transform: isHovered ? 'translateZ(50px)' : 'translateZ(0px)', // 根據 isHovered 狀態設定 translateZ
                     transition: 'transform 0.1s ease-out', // 平滑過渡效果
@@ -76,13 +77,13 @@ export const Card3D: React.FC = () => {
                 {t("p1")}
             </p>
             <div
-                className={`w-[99%] bg-gray-100 rounded-xl p-3 ${isHovered ? "shadow-lg" : ""}`}
+                className={`w-[99%] bg-gray-100 dark:bg-slate-700/75 rounded-xl p-3 ${isHovered ? "shadow-lg" : ""} shadow-[0px_0px_10px_1px_rgba(160,160,160)]`}
                 style={{
                     transform: isHovered ? 'translateZ(100px)' : 'translateZ(0px)', // 根據 isHovered 狀態設定 translateZ
                     transition: 'transform 0.1s ease-out', // 平滑過渡效果
                 }}
             >
-                <pre className={`${zhFont.className} font-medium text-slate-600 w-[300px] mx-auto`}>
+                <pre className={`${zhFont.className} font-medium w-[300px] mx-auto`}>
                     <div className='text-wrap mb-6'>{t("p2")}</div>
                     <div className='text-wrap mb-6'>{t("p3")}</div>
                     <div className='text-wrap'>{t("p4")}</div>
@@ -97,7 +98,7 @@ export const Card3D: React.FC = () => {
                     }}
                 >
                     <RippleButton buttonStyles={'w-12 h-12 grid place-content-center rounded-full'} rippleStyles={'w-12 h-12 bg-slate-300'} rippleScale={3} rippleDuration={1}>
-                        <ThumbsUp className='text-slate-600' />
+                        <ThumbsUp />
                     </RippleButton>
                 </div>
                 <div
@@ -108,7 +109,7 @@ export const Card3D: React.FC = () => {
                     }}
                 >
                     <RippleButton buttonStyles={'w-12 h-12 grid place-content-center rounded-full'} rippleStyles={'w-12 h-12 bg-slate-300'} rippleScale={3} rippleDuration={1}>
-                        <ThumbsUp className='text-slate-600' />
+                        <ThumbsUp />
                     </RippleButton>
                 </div>
                 <div
@@ -119,7 +120,7 @@ export const Card3D: React.FC = () => {
                     }}
                 >
                     <RippleButton buttonStyles={'w-12 h-12 grid place-content-center rounded-full'} rippleStyles={'w-12 h-12 bg-slate-300'} rippleScale={3} rippleDuration={1}>
-                        <ThumbsUp className='text-slate-600' />
+                        <ThumbsUp />
                     </RippleButton>
                 </div>
             </div>

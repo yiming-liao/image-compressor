@@ -10,7 +10,9 @@
         "p1": "Compressed Size",
         "btn2": "Compress",
         "p2": "Download File Name",
-        "btn3": "Download Image"
+        "btn3": "Download Image",
+        "p3": "Output Format",
+        "none": "No file"
     },
     "About": {
         "title": "About",

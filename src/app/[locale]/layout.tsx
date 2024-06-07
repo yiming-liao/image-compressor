@@ -3,6 +3,7 @@ import { getMessages } from 'next-intl/server';
 import Navbar from '@/component/Navbar/Navbar';
 import { FontProvider } from '@/context/FontContext';
 import { Metadata } from 'next';
+import DrawerLayout from '@/component/Drawer/DrawerLayout';
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
     const { locale } = params;
@@ -39,11 +40,12 @@ export default async function LocaleLayout({
     const trackingClass = locale === 'en' ? 'tracking-normal' : 'tracking-wider';
 
     return (
-        <html lang={locale} className={`${trackingClass}  bg-neutral-100 overflow-hidden`}>
-            <body>
+        <html lang={locale}>
+            <body className={`${trackingClass}  overflow-hidden bg-primary`}>
                 <NextIntlClientProvider messages={messages}>
                     <FontProvider>
                         <Navbar />
+                        <DrawerLayout />
                         {children}
                     </FontProvider>
                 </NextIntlClientProvider>

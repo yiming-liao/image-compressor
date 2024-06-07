@@ -3,6 +3,23 @@
 @tailwind utilities;
 
 
+.bg-primary{
+  @apply bg-white text-gray-600 dark:bg-gray-600 dark:text-gray-100 duration-300;
+}
+
+
+.btn-primary {
+  @apply text-gray-600 bg-white dark:bg-gray-600 dark:text-white rounded-md duration-300;
+}
+
+.btn-primary-full {
+  @apply text-gray-600 bg-white dark:bg-gray-600 dark:text-white rounded-full duration-300;
+}
+
+.flex-center{
+  @apply flex justify-center items-center
+}
+
 /* Scroll bar */
 /* width */
 ::-webkit-scrollbar {
@@ -27,7 +44,7 @@
   }
 
 
-
+/* Navbar 為了在Safari上也能有glassmorphism效果 */
   .forNavbar {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* 添加WebKit前綴 */

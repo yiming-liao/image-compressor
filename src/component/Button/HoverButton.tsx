@@ -86,7 +86,7 @@ const HoverButton: React.FC<{
             <button
                 onClick={onClick}
                 ref={heverButtonRef}
-                className={`relative overflow-hidden group ${buttonClassName}`}
+                className={`relative overflow-hidden group shadow ${buttonClassName}`}
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onMouseMove={handleMouseMove}
@@ -94,7 +94,7 @@ const HoverButton: React.FC<{
             >
                 <span
                     ref={circleRef}
-                    className={`absolute ${spanClassName}`}
+                    className={`absolute ${spanClassName} max-sm:hidden`}
                     style={{ pointerEvents: 'none' }}
                 />
                 <div className={`relative z-10 ${pClassName}`}>

@@ -10,8 +10,8 @@ const Template = ({ children }: { children: React.ReactNode }) => {
     useGSAP(() => {
         gsap.fromTo(
             templateRef.current,
-            { opacity: 0 },
-            { opacity: 1, ease: "power2.inOut", duration: 0.3 }
+            { opacity: 0, },
+            { opacity: 1, ease: "power1.inOut", duration: 0.3 }
         );
     }, { scope: templateRef });
 

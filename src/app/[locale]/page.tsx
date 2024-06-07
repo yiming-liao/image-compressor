@@ -1,24 +1,16 @@
 "use client"
 
 import { NextPage } from "next"
-import { useTranslations } from 'next-intl';
 import ImageCompressor from "@/component/ImageCompressor"
-import useLocaleCode from "@/hooks/useLocaleCode";
-import { useFont } from "@/context/FontContext";
 
 const Home: NextPage = () => {
-    const t = useTranslations('Home');
-
-    const { localeCode } = useLocaleCode();
-    const { gloock, zhFont } = useFont();
-    const fontClassName = localeCode === "en" ? gloock.className : zhFont.className;
 
     return (
         <main className="w-full min-h-[100svh] flex flex-col items-center">
-            <div className="max-sm:mt-28 mt-36 mb-12">
-                <h1 className={`${fontClassName} font-semibold text-3xl text-slate-700`}>🖼️ {t('title')}</h1>
+            <div className="mt-32 mb-10 max-sm:hidden">
             </div>
-            <div className="max-w-96 w-[90%] h-[480px] max-sm:h-[453px] shadow-xl rounded-xl border-4 border-gray-200/50">
+            <div className="max-sm:h-20" />
+            <div className="max-w-96 w-[90%] h-[570px] max-sm:h-[85svh] shadow-xl rounded-xl border-4 border-gray-200/50">
                 <ImageCompressor />
             </div>
         </main>
