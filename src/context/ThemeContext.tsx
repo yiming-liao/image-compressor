@@ -12,7 +12,14 @@ const ThemeContext = createContext<ThemeContextType | null>(null);
 
 // ThemeProvider 組件
 export const ThemeProvider = ({ children }: { children: ReactNode }) => {
-    const [theme, setTheme] = useState<"light" | "dark">("light");
+    const [theme, setTheme] = useState<"light" | "dark">(() => {
+        // 檢查 local storage 中是否有已存的 theme 設定
+        if (typeof window !== "undefined") {
+            const savedTheme = localStorage.getItem("theme");
+            return (savedTheme === "light" || savedTheme === "dark") ? savedTheme : "light";
+        }
+        return "light";
+    });
 
     useEffect(() => {
         const root = window.document.documentElement;
@@ -21,14 +28,11 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
         } else {
             root.classList.remove("dark");
         }
+        // 將 theme 存入 local storage
+        localStorage.setItem("theme", theme);
     }, [theme]);
 
-    // const toggleTheme = () => {
-    //     setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
-    // };
-
     return (
-        // <ThemeContext.Provider value={{ theme, toggleTheme }}>
         <ThemeContext.Provider value={{ theme, setTheme }}>
             {children}
         </ThemeContext.Provider>
