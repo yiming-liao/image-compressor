@@ -15,4 +15,4 @@
 
 也運用了剛學習的 next-intl 來配置 i18n 語言切換系統於 Next.js 中
 
-* 壓縮照片主要技術: Compress.js *
+* 壓縮照片主要技術: Compress.js
