@@ -4,7 +4,7 @@
 ![Dribble show 6](https://github.com/Yiming-Liao/image-compressor/assets/160565489/f23a7a0c-6154-44c1-b535-b6a080a89feb)
 
 
-### **Buy me a Boba — 為創意加油，來杯珍珠奶茶吧！**
+### **🖼️ Image Compressor — 照片壓縮器**
 受國外 Buy me a coffee 啟發，
 
 我決定練習撰寫一個台灣版本的 Buy me a boba : )
