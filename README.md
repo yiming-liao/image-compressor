@@ -1,6 +1,8 @@
 ### 🌐 https://image-compressor-steel.vercel.app/
 
-![Dribble show 6](https://github.com/Yiming-Liao/image-compressor/assets/160565489/20921913-21f8-4533-8b85-03d4fea04e44)
+
+![Dribble show 6](https://github.com/Yiming-Liao/image-compressor/assets/160565489/f23a7a0c-6154-44c1-b535-b6a080a89feb)
+
 
 ### **Buy me a Boba — 為創意加油，來杯珍珠奶茶吧！**
 受國外 Buy me a coffee 啟發，
