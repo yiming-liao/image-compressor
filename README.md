@@ -1,36 +1,15 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+🌐 https://buymeaboba.fly.dev/
+1
 
-## Getting Started
+Buy me a Boba — 為創意加油，來杯珍珠奶茶吧！
+受國外 Buy me a coffee 啟發，
 
-First, run the development server:
+我決定練習撰寫一個台灣版本的 Buy me a boba : )
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+在這個專案中我分成前端與後端兩個部分來建置，最後再把前端打包，與後端一起架設到伺服器上。
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+前端：React.js、Tailwind、Framer Motion、React Router
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+後端：Node.js、Express.js、MongoDB、AWS S3、Paypal
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+遇到的一些挑戰：在用戶身分驗證的部分我使用jsonwebtoken(JWT)配合Cookie來處理，在建置過程中因Cors跨域問題、和設定Cookie時的細節遇到許多BUG，研究了一番才解決～
