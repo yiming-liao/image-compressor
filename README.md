@@ -4,15 +4,15 @@
 ![Dribble show 6](https://github.com/Yiming-Liao/image-compressor/assets/160565489/f23a7a0c-6154-44c1-b535-b6a080a89feb)
 
 
-### **🖼️ Image Compressor — 照片壓縮器**
+## 🖼️  Image Compressor — A Simple and Reliable Photo Compression Tool
 
-在建置網站與優化網站效能的時候，常常需要調整照片的尺寸與大小
+When building and optimizing websites, resizing and compressing images is often a necessary step.
+So I created this lightweight and reliable web app for quick image compression — tailored to my own workflow.
 
-所以就為自己建置了這個方便可靠且非常簡單的 Web App
+This project also gave me the opportunity to practice:
+	•	Designing an interactive and responsive UI
+	•	Implementing light/dark theme toggle
+	•	Integrating i18n using next-intl in a Next.js environment
 
-順便練習自己設計互動式 UI 和 Light/Dark mode 主題切換
-
-
-也運用了剛學習的 next-intl 來配置 i18n 多語言系統於 Next.js 中
-
-* 壓縮照片主要技術: Compress.js
+📦 Compression powered by Compress.js
+💡 Built with Next.js and deployed on Vercel
